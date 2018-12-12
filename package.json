@@ -2,15 +2,16 @@
   "name": "currencystack",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "dist/index.js",
   "homepage": "https://currencystack.io",
   "scripts": {
-    "start": "babel-node src/index.js",
+    "start": "babel-node main.js",
     "prebuild": "rimraf dist",
-    "build": "rimraf dist && babel src --out-dir dist",
+    "build": "babel src --out-dir dist",
     "lint": "eslint src/**",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "npm run lint && npm run build"
+    "test:watch": "mocha --require @babel/register --watch --watch-extensions js \"test/**/*.js\"",
+    "test": "mocha --require @babel/register \"test/**/*.js\"",
+    "prepublish": "npm run lint && npm run test && npm run build"
   },
   "husky": {
     "hooks": {
@@ -19,19 +20,33 @@
   },
   "babel": {
     "presets": [
-      "@babel/preset-env"
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "6.10"
+          },
+          "modules": "umd"
+        }
+      ]
+
     ]
   },
   "files": [
     "dist"
   ],
-  "author": "",
+  "contributors": [{
+    "name": "Mohamad Ahmed Omar",
+    "email": "mohamed.ahmed.c209@gmail.com",
+    "url": "https://github.com/MuhamadOmr"
+  }],
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.6",
     "@babel/node": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
+    "@babel/register": "^7.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -40,6 +55,8 @@
     "eslint-plugin-prettier": "^3.0.0",
     "husky": "^1.2.0",
     "lint-staged": "^8.1.0",
+    "mocha": "^5.2.0",
+    "nock": "^10.0.4",
     "prettier": "1.15.2",
     "rimraf": "^2.6.2",
     "tslint": "^5.11.0"

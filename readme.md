@@ -1,26 +1,31 @@
-# clear ip node library
+# CurrencyStack node library
 
-client library for clear ip
+client library for CurrencyStack
 
 ## Installation
 
 ```bash
-yarn add clearip
+yarn add CurrencyStack-node
 ```
 
 ## usage
 
-Get ip info:
+Get currency conversion rates:
 
 ```javascript
-const Client = require("clearip");
+const currencyStack = require("./dist/index");
 
 const main = async () => {
-  const clearIpClient = new Client("api key here");
+    const currencyStackClient = new currencyStack.Client('api key here');
 
-  const response = await clearIpClient.getIpinfo("ip here");
-  console.log(response);
+    const response = await currencyStackClient.currencyApi.GetCurrencyConvertion("AED", ["USD", "EUR", "egp"])
+        .catch(e => console.log(e.toString()));
+
+    console.log(response);
 };
+
+
+main();
 ```
 
 ## Contributing

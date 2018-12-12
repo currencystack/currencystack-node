@@ -1,7 +1,7 @@
 import axios from "axios";
 import Currency from "./Currency";
 
-export default class Client {
+export class Client {
   constructor(apiKey) {
     if (!apiKey) throw new Error("api key is required");
 
@@ -13,7 +13,25 @@ export default class Client {
       }
     });
 
-    this.currencyApi = new Currency(this);
+    this.httpClient.interceptors.request.use(
+      config => ({
+        ...config,
+        params: {
+          ...config.params,
+          ...(!!this.apiKey && {
+            apikey: this.apiKey,
+          }),
+        }
+
+      }),
+      error => {
+        throw new Error(error)
+      }
+    );
+
+
+
+    this.currencyApi = new Currency(this.httpClient);
 
   }
 
