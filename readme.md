@@ -1,4 +1,4 @@
-# CurrencyStack node library
+# CurrencyStack node library [![Build Status](https://travis-ci.com/currencystack/currencystack-node.svg?branch=master)](https://travis-ci.com/currencystack/currencystack-node)
 
 client library for CurrencyStack
 
